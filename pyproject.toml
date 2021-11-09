@@ -1,0 +1,49 @@
+[tool.poetry]
+name = "bakkes-rcon"
+version = "0.0.0"
+description = "Tools for interacting with BakkesMod over its websocket RCON"
+readme = "README.md"
+homepage = "https://github.com/theY4Kman/bakkes-rcon"
+repository = "https://github.com/theY4Kman/bakkes-rcon"
+authors = ["Zach \"theY4Kman\" Kanzler <they4kman@gmail.com>"]
+license = "MIT"
+
+packages = [
+  { include = "bakkes_rcon" },
+  { include = "tests/", format = "sdist" },
+  { include = "examples/", format = "sdist" },
+  { include = "LICENSE", format = "sdist" },
+  { include = "CHANGELOG.md", format = "sdist" },
+]
+
+
+[tool.poetry.dependencies]
+python = "^3.10"
+websockets = "^10.0"
+
+[tool.poetry.dev-dependencies]
+# NOTE: git dep is used, because current release (0.910) does not support PEP 613 TypeAliases,
+#       which were supported as of https://github.com/python/mypy/pull/11305
+mypy = {git = "https://github.com/python/mypy.git", rev = "8052c8d08f11b7894e0c07824ef772b38e525469"}
+pytest = "^6.2.5"
+pytest-camel-collect = "^1.0.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+addopts = "--verbosity=2 --tb=short --doctest-modules"
+
+# Only find tests underneath the tests/ directory, and doctests in package
+testpaths = ["tests", "bakkes_rcon"]
+
+# Only search for tests within files matching these patterns
+python_files = "tests.py test_*.py"
+
+# Discover tests within classes matching these patterns
+# NOTE: the dash represents a word boundary (functionality provided by pytest-camel-collect)
+python_classes = "Test-* Describe-* Context-* With-* Without-* For-* When-* If-* Case-*"
+
+# Only methods matching these patterns are considered tests
+python_functions = "test_* it_* its_*"
