@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "bakkes-rcon"
-version = "0.0.0"
+version = "0.0.1"
 description = "Tools for interacting with BakkesMod over its websocket RCON"
 readme = "README.md"
 homepage = "https://github.com/theY4Kman/bakkes-rcon"
